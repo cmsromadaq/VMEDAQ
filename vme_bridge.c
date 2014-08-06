@@ -12,8 +12,8 @@ int bridge_init(int32_t &BHandle) {
   short          Link, Device;
   BHandle = 0;
   unsigned int DataShort=0;
-  VMEBoard = cvV1718;
-  // VMEBoard = cvV2718;
+  //  VMEBoard = cvV1718;
+  VMEBoard = cvV2718;
   Device = VME_DEVICE_ID; //Beware this number can flip from 0 to 1 after reboot...
   Link = VME_LINK_ID;
   bool debug = false;

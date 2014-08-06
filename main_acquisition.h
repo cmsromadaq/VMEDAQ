@@ -4,17 +4,17 @@
 /* GENERAL SETTING  */
 #define V1718 1
 #define IO513 0
-#define IO262 1
+#define IO262 0
 #define TDC488A 0
-#define TDC1190 1
+#define TDC1190 0
 #define TDC1190_2 0
-#define ADC265 1
-#define ADC792 1
+#define ADC265 0
+#define ADC792 0
 #define ADC792_2 0
 #define ADC792_3 0
-#define DIG1742 1
-#define SCALER560 1
-#define DISCR814 1
+#define DIG1742 0
+#define SCALER560 0
+#define DISCR814 0
 #define debug 1
 
 /* 1 modulo attivo*/

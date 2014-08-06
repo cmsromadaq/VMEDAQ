@@ -155,6 +155,8 @@ int main(int argc, char** argv)
 	  printf("VME Initialization error ... STOP!\n");
 	  return(1);
 	}
+      CAENVME_SystemReset(BHandle);
+      printf("Initialized VME crate\n");
     }
 
   /* Modules initialization */
@@ -377,7 +379,6 @@ int main(int argc, char** argv)
       }
 
 
-
       if (!beam_trigger && IO262 && pedestal_freq>0)
 	{
 	  float usec_delay=1.E6/(pedestal_freq);
@@ -406,6 +407,7 @@ int main(int argc, char** argv)
 	    trigger = trigger_V513(BHandle);    
 	  }
       }
+
 
       /* Attach a TIMESPAMP to the event */
       gettimeofday(&tv, NULL);
