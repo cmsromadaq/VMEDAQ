@@ -206,7 +206,7 @@ typedef enum
 *   \note    Must be called before any other board specific API.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_init( int32_t BHandle);
+short cvt_V814_init( int32_t BHandle);
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* /\*! \fn      BOOL cvt_V814_close( cvt_V814_data* p_data); */
@@ -246,7 +246,7 @@ unsigned short cvt_V814_init( int32_t BHandle);
 *   \sa      cvt_V814_threshold_id 
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id threshold_id, unsigned int value);
+short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id threshold_id, unsigned int value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \fn      BOOL cvt_V814_set_output_width( cvt_V814_data* p_data, UINT8 value);
@@ -258,7 +258,7 @@ unsigned short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id th
 *   \return  TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_output_width( int32_t BHandle, unsigned int value);
+short cvt_V814_set_output_width( int32_t BHandle, unsigned int value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \fn      BOOL cvt_V814_set_majority_threshold( cvt_V814_data* p_data, UINT8 value);
@@ -270,7 +270,7 @@ unsigned short cvt_V814_set_output_width( int32_t BHandle, unsigned int value);
 *   \return  TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int value);
+short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int value);
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \fn      BOOL cvt_V814_set_pattern_inhibit( cvt_V814_data* p_data, UINT16 value);
@@ -282,7 +282,7 @@ unsigned short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int va
 *   \return  TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value);
+short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \fn      BOOL cvt_V814_set_test_pulse( cvt_V814_data* p_data);

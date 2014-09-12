@@ -86,7 +86,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define V814_DEBUG 1
-unsigned short cvt_V814_init( int32_t BHandle )
+short cvt_V814_init( int32_t BHandle )
 {
   // basic data initialization
   /* address=V814_0_BA; */
@@ -95,7 +95,7 @@ unsigned short cvt_V814_init( int32_t BHandle )
   /* // board specific data initialization */
   /* p_data->m_type= type; */
 
-  unsigned short status(1);
+  short status(1);
  
   status*=cvt_V814_set_pattern_inhibit(BHandle,0x000F);
   if (status!=1)
@@ -156,7 +156,7 @@ unsigned short cvt_V814_init( int32_t BHandle )
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/* unsigned short cvt_V814_close( int32_t BHandle) */
+/* short cvt_V814_close( int32_t BHandle) */
 /* { */
 /* 	if( !cvt_board_close( &p_data->m_common_data)) */
 /* 		return FALSE; */
@@ -179,9 +179,9 @@ unsigned short cvt_V814_init( int32_t BHandle )
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id threshold_id, unsigned int value)
+short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id threshold_id, unsigned int value)
 {
-  unsigned short status(1),caenst;
+  short status(1),caenst;
   unsigned int reg_value= value;
   
   // Parameter checking
@@ -235,9 +235,9 @@ unsigned short cvt_V814_set_threshold( int32_t BHandle, cvt_V814_threshold_id th
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_output_width( int32_t BHandle, unsigned int value)
+short cvt_V814_set_output_width( int32_t BHandle, unsigned int value)
 {
-  unsigned short status(1),caenst;
+  short status(1),caenst;
   unsigned int reg_value= value;
   // write registers
   caenst = CAENVME_WriteCycle(BHandle,V814_0_BA + CVT_V814_OUT_WIDTH_0_7_ADD ,&reg_value,cvA24_U_DATA,cvD16);
@@ -255,9 +255,9 @@ unsigned short cvt_V814_set_output_width( int32_t BHandle, unsigned int value)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int value)
+short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int value)
 {
-  unsigned short status(1),caenst;
+  short status(1),caenst;
   unsigned int reg_value= value;
   unsigned int address=V814_0_BA + CVT_V814_MAJORITY_ADD; 
   caenst = CAENVME_WriteCycle(BHandle,address,&reg_value,cvA24_U_DATA,cvD16);
@@ -269,9 +269,9 @@ unsigned short cvt_V814_set_majority_threshold( int32_t BHandle, unsigned int va
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value)
+short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value)
 {
-  unsigned short status(1),caenst;
+  short status(1),caenst;
   unsigned int reg_value = value;
   unsigned int address=V814_0_BA + CVT_V814_PATTERN_INHIBIT_ADD; 
   caenst = CAENVME_WriteCycle(BHandle,address,&reg_value,cvA24_U_DATA,cvD16);
@@ -283,7 +283,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_set_test_pulse( int32_t BHandle) */
+/* short cvt_V814_set_test_pulse( int32_t BHandle) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// write register */
@@ -298,7 +298,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_get_fixed_code( int32_t BHandle, unsigned int *p_value) */
+/* short cvt_V814_get_fixed_code( int32_t BHandle, unsigned int *p_value) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// read register */
@@ -314,7 +314,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_get_manufacturer_number( int32_t BHandle, unsigned int *p_value) */
+/* short cvt_V814_get_manufacturer_number( int32_t BHandle, unsigned int *p_value) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// read register */
@@ -330,7 +330,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_get_module_type( int32_t BHandle, unsigned int *p_value) */
+/* short cvt_V814_get_module_type( int32_t BHandle, unsigned int *p_value) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// read register */
@@ -346,7 +346,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_get_version( int32_t BHandle, unsigned int *p_value) */
+/* short cvt_V814_get_version( int32_t BHandle, unsigned int *p_value) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// read register */
@@ -362,7 +362,7 @@ unsigned short cvt_V814_set_pattern_inhibit( int32_t BHandle, unsigned int value
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //  */
 /* //////////////////////////////////////////////////////////////////////////////////////////////// */
-/* unsigned short cvt_V814_get_serial_number( int32_t BHandle, unsigned int *p_value) */
+/* short cvt_V814_get_serial_number( int32_t BHandle, unsigned int *p_value) */
 /* { */
 /* 	unsigned int reg_value= 0; */
 /* 	// read register */

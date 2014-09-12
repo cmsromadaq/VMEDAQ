@@ -8,7 +8,7 @@
 # daq for the CAEN bridge v1718
 
 
-OBJS = adc265_lib.o adc792_lib.o tdc1190_lib.o tdcV488A_lib.o v1718_lib.o vme_bridge.o V513_lib.o V262_lib.o scaler560_lib.o V1742_lib.o V814_lib.o   X742CorrectionRoutines.o
+OBJS = adc265_lib.o adc792_lib.o tdc1190_lib.o tdcV488A_lib.o v1718_lib.o vme_bridge.o V513_lib.o V262_lib.o scaler560_lib.o V1742_lib.o V814_lib.o   X742CorrectionRoutines.o V1495_patternUnit.o
 
 OBJS_CAENCOMM = V814_lib_CAENComm.o V513_lib_CAENComm.o V262_lib_CAENComm.o adc792_lib_CAENComm.o X742CorrectionRoutines.o V1742_lib.o 
 
@@ -37,6 +37,9 @@ main_acquisition.o: main_acquisition.c main_acquisition.h
 
 testDigitizer.o: testDigitizer.c
 	g++ $(COPTS) -c testDigitizer.c
+
+V1495_patternUnit.o: V1495_patternUnit.c
+	g++ $(COPTS) -c V1495_patternUnit.c
 
 simple_count.o: simple_count.c
 	g++ $(COPTS) -c simple_count.c
