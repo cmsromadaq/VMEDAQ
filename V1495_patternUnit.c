@@ -72,7 +72,7 @@ int init_V1495_patternUnit(int handle)
   caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MASKF_ADDRESS , &V1495_patternUnit_config.maskF ,cvA32_U_DATA,cvD32);
   status *= (1-caenst);
 
-  if (userfpgafwMajorVersion>1 && userfpgafwMinorVersion>0)
+  if (userfpgafwMajorVersion>=2 && userfpgafwMinorVersion>=1) //delay implemented from FW version 2.1
     {
       caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_DELAY_ADDRESS , &V1495_patternUnit_config.sigDelay ,cvA32_U_DATA,cvD32);
       status *= (1-caenst);
@@ -115,30 +115,30 @@ int read_V1495_patternUnit(int handle, std::vector<unsigned int>& eventBuffer)
 
   eventBuffer.push_back(data);
 #ifdef V1495_DEBUG
-  std::cout << "V1495 STATUS ===>" << std::hex << data << std::endl;
+  std::cout << "STATUS ===> 0x" << std::hex << data << std::endl;
 #endif
   caenst = CAENVME_ReadCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_PATTERNA_ADDRESS , &data ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
 #ifdef V1495_DEBUG
-  std::cout << "V1495 PATTERNA ===>" << std::hex << data << std::endl;
+  std::cout << "PATTERNA ===> 0x" << std::hex << data << std::endl;
 #endif
   eventBuffer.push_back(data);
   caenst = CAENVME_ReadCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_PATTERNB_ADDRESS , &data ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
 #ifdef V1495_DEBUG
-  std::cout << "V1495 PATTERNB ===>" << std::hex << data << std::endl;
+  std::cout << "PATTERNB ===> 0x" << std::hex << data << std::endl;
 #endif
   eventBuffer.push_back(data);
   caenst = CAENVME_ReadCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_PATTERNE_ADDRESS , &data ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
 #ifdef V1495_DEBUG
-  std::cout << "V1495 PATTERNE ===>" << std::hex << data << std::endl;
+  std::cout << "PATTERNE ===> 0x" << std::hex << data << std::endl;
 #endif
   eventBuffer.push_back(data);
   caenst = CAENVME_ReadCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_PATTERNF_ADDRESS , &data ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
 #ifdef V1495_DEBUG
-  std::cout << "V1495 PATTERNF ===>" << std::hex << data << std::endl;
+  std::cout << "PATTERNF ===> 0x" << std::hex << data << std::endl;
 #endif
   eventBuffer.push_back(data);
 
@@ -166,7 +166,7 @@ int find_V1495_patternUnit_eventSize(std::vector<unsigned int>& events,unsigned 
   short dt_type_boe = events.at(evtStart)>>28 & 0xF;
   if (dt_type_boe != 5)
     {
-      std::cout << "[V1495_patternUnit]::[ERROR]::NOT AT BEGIN OF EVENT. DATA PROBABLY CORRUPTED" << std::endl;
+      std::cout << "[V1495_patternUnit]::[ERROR]::NOT AT BEGIN OF EVENT. DATA CORRUPTED" << std::endl;
       return -1;
     }
   short nPatternWords = events.at(evtStart)&0xF;
@@ -174,14 +174,14 @@ int find_V1495_patternUnit_eventSize(std::vector<unsigned int>& events,unsigned 
   short dt_type_eoe = events.at(evtStart+nPatternWords+2)>>28 & 0xF;
   if (dt_type_eoe != 3)
     {
-      std::cout << "[V1495_patternUnit]::[ERROR]::NOT AT END OF EVENT. DATA PROBABLY CORRUPTED" << std::endl;
+      std::cout << "[V1495_patternUnit]::[ERROR]::NOT AT END OF EVENT. DATA CORRUPTED" << std::endl;
       return -1;
     }
 
   short nTotalWords = events.at(evtStart+nPatternWords+2)&0xFF;
   if (nTotalWords != nPatternWords+3)
     {
-      std::cout << "[V1495_patternUnit]::[ERROR]::DATA SIZE MISMATCH. DATA PROBABLY CORRUPTED" << std::endl;
+      std::cout << "[V1495_patternUnit]::[ERROR]::DATA SIZE MISMATCH. DATA CORRUPTED" << std::endl;
       return -1;
     }
 
