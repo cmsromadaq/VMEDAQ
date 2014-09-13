@@ -19,7 +19,7 @@
 #include "tdc1190_lib.h"
 #include "adc265_lib.h"
 #include "adc792_lib.h"
-//#include "v495_lib.h"
+#include "V1495_patternUnit.h"
 #include "tdcV488A_lib.h"
 #include "scaler560_lib.h"
 #include "v1718_lib.h"
@@ -146,8 +146,8 @@ int main(int argc, char** argv)
 
       status_init = bridge_init(BHandle);
       /* VME deinitialization */
-      bridge_deinit(BHandle);
-      status_init = bridge_init(BHandle);
+      /* bridge_deinit(BHandle); */
+      /* status_init = bridge_init(BHandle); */
       
       printf("VME initialization\n");
       if (status_init != 1)
@@ -199,7 +199,18 @@ int main(int argc, char** argv)
 	return(1); 
       }
     } 
-  
+
+  if (PATTERN1495)
+    {
+      printf("V1495 Pattern Unit initialization\n");
+      status_init *= init_V1495_patternUnit(BHandle);
+      if (status_init != 1) 
+      {
+	printf("Error in PATTERN1495 initialization... STOP!\n");
+	return(1);
+      }
+    }
+
   /* Scaler560 Initialisation */
   if(SCALER560) {
     printf("V560 scaler initialization\n");

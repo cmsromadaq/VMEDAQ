@@ -15,6 +15,7 @@
 #define DIG1742 0
 #define SCALER560 0
 #define DISCR814 0
+#define PATTERN1495 1
 #define debug 1
 
 /* 1 modulo attivo*/
