@@ -28,7 +28,7 @@ patternUnitConfig_t V1495_patternUnit_config;
 int init_V1495_patternUnit(int handle)
 {
   // will be read by config file later
-  V1495_patternUnit_config.baseAddress=0x33330000;
+  V1495_patternUnit_config.baseAddress=0x22220000;
   V1495_patternUnit_config.ctrlRegWord=0x00001010;
   V1495_patternUnit_config.maskA=0xFFFFFFFF;
   V1495_patternUnit_config.maskB=0xFFFFFFFF;
@@ -38,6 +38,9 @@ int init_V1495_patternUnit(int handle)
 
   short status(1),caenst;
   unsigned int data;
+  caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MODULERESET_ADDRESS, &data ,cvA32_U_DATA,cvD32);
+  status *= (1-caenst);
+  sleep(1);
   caenst = CAENVME_ReadCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_VMEFPGA_FWVERSION_ADDRESS, &data ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
   if (status !=1 )
@@ -52,16 +55,16 @@ int init_V1495_patternUnit(int handle)
       std::cout << "[V1495_patternUnit]::[INFO]::Initializing device @" << std::hex << V1495_patternUnit_config.baseAddress << std::dec << " VME FPGA FW Version " << fwMajorVersion << "." << fwMinorVersion << std::endl;
     }
 
-  caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_CTRLREG_ADDRESS, &V1495_patternUnit_config.ctrlRegWord ,cvA32_U_DATA,cvD32);
+  caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_CTRLREG_ADDRESS , &V1495_patternUnit_config.ctrlRegWord ,cvA32_U_DATA,cvD32);
   status *= (1-caenst); 
   caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MASKA_ADDRESS , &V1495_patternUnit_config.maskA ,cvA32_U_DATA,cvD32);
-  status *= (1-caenst); 
+  status *= (1-caenst);
   caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MASKB_ADDRESS , &V1495_patternUnit_config.maskB ,cvA32_U_DATA,cvD32);
-  status *= (1-caenst); 
+  status *= (1-caenst);
   caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MASKE_ADDRESS , &V1495_patternUnit_config.maskE ,cvA32_U_DATA,cvD32);
-  status *= (1-caenst); 
+  status *= (1-caenst);
   caenst = CAENVME_WriteCycle(handle,V1495_patternUnit_config.baseAddress + V1495_PATTERNUNIT_MASKF_ADDRESS , &V1495_patternUnit_config.maskF ,cvA32_U_DATA,cvD32);
-  status *= (1-caenst); 
+  status *= (1-caenst);
 
   if (status !=1 )
     {
@@ -69,7 +72,7 @@ int init_V1495_patternUnit(int handle)
       return 3;
     }
 
-  std::cout << "[V1495_patternUnit]::[INFO]::Initializing complted for device @0x" <<std::hex <<  V1495_patternUnit_config.baseAddress << std::dec << std::endl;
+  std::cout << "[V1495_patternUnit]::[INFO]::Initializing completed for device @0x" <<std::hex <<  V1495_patternUnit_config.baseAddress << std::dec << std::endl;
   
   return status;
 }

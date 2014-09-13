@@ -159,6 +159,8 @@ int main(int argc, char** argv)
       printf("Initialized VME crate\n");
     }
 
+  sleep(1); //Wait some time after system reset
+
   /* Modules initialization */
   status_init=1;
   if(V1718)
