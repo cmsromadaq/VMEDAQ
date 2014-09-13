@@ -308,6 +308,7 @@ int main(int argc, char** argv)
   int start_adc792, end_adc792;
   int start_adc792_2, end_adc792_2;
   int start_adc792_3, end_adc792_3;
+  int start_pattern1495, end_pattern1495;
   int start_tdc2, end_tdc2;
   int start_v488, end_v488;
   int start_v560, end_v560;
@@ -329,6 +330,7 @@ int main(int argc, char** argv)
   vector<V1742_Event_t> my_dig1742_OD;
   vector<int> my_header_OD;
   vector<unsigned int> my_Dig_Event;
+  vector<unsigned int> my_PatternUnit_Event;
 
   myOut.open(f_value,ios::out);
 
@@ -449,6 +451,8 @@ int main(int argc, char** argv)
 
       if(read_boards) {
 	nreadout++;
+	
+	
 	/* read the TDC 1190 */
 	if(TDC1190) {
 	  my_tdc_OD.clear();
@@ -574,6 +578,19 @@ int main(int argc, char** argv)
 
 	  board_num += 128;
 	}
+
+	/* read the V1495 Pattern Unit */
+	if (PATTERN1495)
+	  {
+	    my_PatternUnit_Event.clear();
+	    daq_status = read_V1495_patternUnit(BHandle,my_PatternUnit_Event);
+	    if (daq_status != 1) 
+	      {
+		printf("Error reading PATTERN_UNIT 1495... STOP!\n");
+		return(1);
+	      }
+	    board_num += 256;
+	  }
 	
 	if(SCALER560 && update_scaler) {
 	  
@@ -608,7 +625,7 @@ int main(int argc, char** argv)
 	}
 
 	//HEADER with timing will be always present
-	board_num += 256;
+	board_num += 512;
 
 	start = 0;
 
@@ -616,6 +633,7 @@ int main(int argc, char** argv)
 	start_adc792 = 0;
 	start_adc792_2 = 0;
 	start_adc792_3 = 0;
+	start_pattern1495 = 0;
 	start_tdc2 = 0;
 	start_v488 = 0;
 	start_v560 = 0;
@@ -675,6 +693,7 @@ int main(int argc, char** argv)
 	  int eventSize_adc792=0;
 	  int eventSize_adc792_2=0;
 	  int eventSize_adc792_3=0;
+	  int eventSize_pattern1495=0;
 
 	  if(ADC265) {
 	    if (! (start_adc265 + ADC265_CHANNEL >  my_adc_OD.size()) )
@@ -749,6 +768,13 @@ int main(int argc, char** argv)
 	    }
 	  }
 
+	  if(PATTERN1495) {
+	    eventSize_pattern1495=find_V1495_patternUnit_eventSize(my_PatternUnit_Event,start_pattern1495);
+	    if(eventSize_pattern1495) {
+	      if(d_value) cout<<"This V1495 patternUnit evt has "<<eventSize_pattern1495<<" words"<<endl;
+	      myOE.push_back(eventSize_pattern1495);
+	    }
+	  }
 	  
 
 	  if(SCALER560 && update_scaler) {
@@ -847,6 +873,13 @@ int main(int argc, char** argv)
 	    }
 	  }
 
+	  if(PATTERN1495) {
+	    end_pattern1495 = start_pattern1495 + eventSize_pattern1495;
+	    for(int idum = start_pattern1495; idum<end_pattern1495; idum++) {
+	      myOE.push_back(my_PatternUnit_Event.at(idum));
+	    }
+	    start_pattern1495 = end_pattern1495; 
+	  }
 	  
 	  if(SCALER560 && my_scal_OD.size() && update_scaler) {
 	    //Only dump the scaler on the 'FIRST set of events'
@@ -857,7 +890,7 @@ int main(int argc, char** argv)
 	      }
 	      start_v560 = end_v560; //Reset the start position to the end of previuos write
 	    }
-	    }
+	  }
 	  
 	  //ADD the header info
 	  end_hea = start_hea + 3;
